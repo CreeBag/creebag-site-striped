@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+<title>Crèè Bag</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: #f8f5f0;
+  background-image: url("C:/prove/images/unnamed.jpg");
+  color: #2d2d2d;
+  background-size: cover;       /* Scale image to cover entire area */
+  background-position: center;  /* Center the image */
+  background-repeat: no-repeat; /* Prevent tiling */
+  min-height: 100vh;            /* Ensure full height */
+}
+
+/* NAV */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+}
+
+.logo {
+  font-family: 'Allura', cursive;
+  font-size: 34px;
+  color: #2d2d2d;
+}
+
+.menu a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #333;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+/* HERO */
+.hero {
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  /*background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;*/
+  background: linear-gradient(rgba(248,245,240,0.7), rgba(248,245,240,0.95));
+}
+
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  color: #666;
+  max-width: 600px;
+  margin: auto;
+  line-height: 1.7;
+}
+
+/* SECTION TITLE */
+.section-title {
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 44px;
+  margin-bottom: 50px;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 1px;
+  background: #d8b4f8;
+  margin: 6px auto 0;
+  opacity: 0.8;
+}
+
+/* PRODUCTS */
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  padding: 80px 8%;
+}
+
+.card {
+  background: rgba(255,255,255,0.75);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+}
+
+.card img {
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+}
+
+.card h3 {
+  padding: 15px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  text-align: center;
+}
+
+/* SLIDER */
+.slider {
+  position: relative;
+}
+
+.slider img {
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  display: none;
+}
+
+.slider img.active {
+  display: block;
+}
+
+.slider button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.8);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.slider button:first-of-type { left: 10px; }
+.slider button:last-of-type { right: 10px; }
+
+/* SEZIONI */
+.section-box {
+  padding: 100px 20px;
+  max-width: 900px;
+  margin: auto;
+  text-align: center;
+}
+
+.section-box p {
+  font-size: 16px;
+  line-height: 1.9;
+  color: #555;
+  max-width: 750px;
+  margin: 25px auto 40px;
+}
+
+/* BOTTONI (ORA CORRETTI) */
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.buttons a.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 170px;
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 30px;
+  background: #fff;
+  color: #2d2d2d;
+  text-decoration: none;
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+  transition: 0.3s;
+}
+
+.buttons a.btn:hover {
+  transform: translateY(-2px);
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 25px;
+  background: #eee7de;
+  font-size: 14px;
+}
+</style>
+</head>
+
+<script>
+function changeSlide(button, direction) {
+  const slider = button.parentElement;
+  const images = slider.querySelectorAll("img");
+
+  let current = 0;
+
+  images.forEach((img, i) => {
+    if (img.classList.contains("active")) {
+      current = i;
+      img.classList.remove("active");
+    }
+  });
+
+  let next = current + direction;
+  if (next < 0) next = images.length - 1;
+  if (next >= images.length) next = 0;
+
+  images[next].classList.add("active");
+}
+</script>
+
+<body>
+
+<nav>
+  <div class="logo">Crèè bag</div>
+  <div class="menu">
+    <a href="#prodotti">COLLEZIONE</a>
+    <a href="#orders">ORDINI</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div>
+    <h1>Handmade Crochet Bags</h1>
+    <p>Borse artigianali uniche, eleganti e sostenibili, realizzate a mano con cura.</p>
+  </div>
+</header>
+
+<section id="prodotti" class="section-box">
+  <h2 class="section-title">Le nostre creazioni</h2>
+
+  <div class="products">
+
+    <div class="card">
+      <img src="C:\prove\images\marine.png" alt="Pochette Marine">
+      <h3>Pochette Marine</h3>
+    </div>
+
+    <div class="card">
+      <div class="slider">
+        <img class="active" src="C:\prove\images\altea.png" alt="Modello Altea">
+        <img src="C:\prove\images\altea1.png">
+        <button onclick="changeSlide(this,-1)">‹</button>
+        <button onclick="changeSlide(this,1)">›</button>
+      </div>
+      <h3>Modello Altea</h3>
+    </div>
+
+    <div class="card">
+      <img src="C:\prove\images\berry.png" alt ="Modello Berry">
+      <h3>Modello Berry</h3>
+    </div>
+
+    <div class="card"> <img src="C:\prove\images\olivia.jpeg" alt="Modello Olivia">
+        <h3>Modello Olivia</h3>
+      </div>
+
+      <div class="card"> <img src="C:\prove\images\paillettes.jpeg" alt="Clutch Paillettes">
+        <h3>Clutch Paillettes</h3>
+      </div>
+
+      <div class="card"> <img src="C:\prove\images\gilda.jpeg" alt="Modello Gilda">
+        <h3>Modello Gilda</h3>
+      </div>
+
+      <div class="card"> <img src="C:\prove\images\choker.jpeg" alt="Choker">
+        <h3>Choker</h3>
+      </div>
+
+      <div class="card"> <img src="C:\prove\images\tulips.jpeg" alt="Tulips">
+        <h3>Tulips</h3>
+      </div>
+
+  </div>
+</section>
+
+<section id="orders" class="section-box">
+  <h2 class="section-title">Ordini</h2>
+
+  <p>
+    Le borse presenti sul sito sono solo alcuni esempi delle nostre creazioni artigianali.
+    Ogni modello può essere personalizzato scegliendo modello, colori, dettagli e finiture.
+    Tutte le borse sono disponibili in diversi materiali, tra cui cordino, lurex e altre varianti, con la possibilità di aggiungere o meno paillettes per un tocco ancora più unico e brillante.
+    Contattaci su Instagram per creare la tua borsa su misura.
+  </p>
+
+  <div class="buttons">
+    <a class="btn" href="https://www.instagram.com/cree_bag/" target="_blank">📸 Instagram</a>
+    <a class="btn" href="https://www.instagram.com/chiarabonii/" target="_blank">Chiara Boni 💌</a>
+  </div>
+</section>
+
+<footer>
+  © 2026 Crèè bag - Handmade with love
+</footer>
+
+</body>
+</html>
